@@ -41,6 +41,9 @@ public class Tarea {
 
     @Column(length = 100)
     private String descripcion;
+    
+    @Column(length = 25)
+    private String nombre;
 
     @Column
     private double importancia;
