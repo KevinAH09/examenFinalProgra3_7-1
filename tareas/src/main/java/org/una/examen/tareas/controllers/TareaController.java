@@ -57,6 +57,7 @@ public class TareaController {
     @GetMapping("/proyectoID/{id}")
     public ResponseEntity<?> findByProyectoId(@PathVariable(value = "id") Long id) {
         try {
+         
             return new ResponseEntity(tareaService.findByProyectoId(id), HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);

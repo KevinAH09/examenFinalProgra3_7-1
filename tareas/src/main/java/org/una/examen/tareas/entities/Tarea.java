@@ -22,6 +22,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.una.examen.tareas.dtos.TareaDTO;
 
 /**
  *
@@ -41,7 +42,7 @@ public class Tarea {
 
     @Column(length = 100)
     private String descripcion;
-    
+
     @Column(length = 25)
     private String nombre;
 
@@ -53,19 +54,25 @@ public class Tarea {
 
     @Column(name = "procentaje_avance")
     private double procentajeAvance;
-    
+
     @ManyToOne
     @JoinColumn(name = "proyecto_id")
     private Proyecto proyectoId;
 
-    @Column(name = "fecha_inicio", updatable = false)
+    @Column(name = "fecha_inicio", updatable = true)
     @Temporal(TemporalType.TIMESTAMP)
-    @Setter(AccessLevel.NONE)
     private Date fechaInicio;
 
-    @Column(name = "fecha_finalizacion", updatable = false)
+    @Column(name = "fecha_finalizacion", updatable = true)
     @Temporal(TemporalType.TIMESTAMP)
-    @Setter(AccessLevel.NONE)
     private Date fechaFinalizacion;
+
+    public void setFechaInicio(Date fechaInicio) {
+        this.fechaInicio = fechaInicio;
+    }
+
+    public void setFechaFinalizacion(Date fechaFinalizacion) {
+        this.fechaFinalizacion = fechaFinalizacion;
+    }
 
 }

@@ -56,8 +56,11 @@ public class TareaServiceImplementation implements ITareaService {
     @Transactional
     public Optional<TareaDTO> update(TareaDTO tarea, Long id) {
         if (tareaRepository.findById(id).isPresent()) {
+            System.out.println(tarea.getFechaInicio());
             Tarea tareaEditar = MapperUtils.EntityFromDto(tarea, Tarea.class);
+            System.out.println(tareaEditar.getFechaInicio());
             tareaEditar = tareaRepository.save(tareaEditar);
+            System.out.println(tareaEditar.getFechaInicio());
             return Optional.ofNullable(MapperUtils.DtoFromEntity(tareaEditar, TareaDTO.class));
         } else {
             return null;
