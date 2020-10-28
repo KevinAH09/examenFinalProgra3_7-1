@@ -6,6 +6,7 @@
 package org.una.examen.tareas.controllers;
 
 import java.util.Optional;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.una.examen.tareas.dtos.TareaDTO;
 import org.una.examen.tareas.services.ITareaService;
@@ -65,12 +67,19 @@ public class TareaController {
 
     }
 
+    @ResponseStatus(HttpStatus.OK)
     @PostMapping("/")
-    public ResponseEntity<?> create(@RequestBody TareaDTO tareaDTO) {
+    @ResponseBody
+    public ResponseEntity<?> create(@Valid @RequestBody TareaDTO tareaDTO,BindingResult bindingResult) {
+        if (!bindingResult.hasErrors()) {
         try {
+            System.out.println(tareaDTO);
             return new ResponseEntity(tareaService.create(tareaDTO), HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity(e, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+        }else{
+             return new ResponseEntity("Verfique la informacion", HttpStatus.BAD_REQUEST);
         }
 
     }
